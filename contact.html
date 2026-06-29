@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا - مجمع مزايا لمار</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1e293b;
+            --teal: #2dd4bf;
+            --teal-dark: #14b8a6;
+            --gradient-teal: linear-gradient(135deg, #2dd4bf 0%, #06b6d4 100%);
+            --gradient-banner: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            --white: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --text-light: #94a3b8;
+            --whatsapp: #25d366;
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-xl: 0 16px 40px rgba(0,0,0,0.15);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --radius-full: 50px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Cairo', sans-serif; background: var(--white); color: var(--text-gray); line-height: 1.7; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-teal { background: var(--gradient-teal); color: var(--white); }
+        .btn-white { background: var(--white); color: var(--text-dark); }
+        .btn-whatsapp { background: var(--whatsapp); color: var(--white); }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--navy); }
+        .nav-content { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; background: var(--gradient-teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon i { color: var(--white); font-size: 18px; }
+        .logo-text h2 { font-size: 16px; font-weight: 800; color: var(--white); line-height: 1.3; }
+        .logo-text p { font-size: 11px; color: var(--text-light); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-link { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); transition: var(--transition); }
+        .nav-link:hover, .nav-link.active { color: var(--teal); }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .header-actions .btn { padding: 8px 18px; font-size: 13px; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .menu-toggle span { width: 24px; height: 2.5px; background: var(--white); border-radius: 2px; }
+
+        /* ============================================
+           HERO BANNER - عناصر تتنطط للابد
+           ============================================ */
+        .hero-banner {
+            padding-top: 68px;
+            background: var(--gradient-banner);
+            text-align: center;
+            padding-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            min-height: 340px;
+        }
+
+        /* العناصر المتحركة */
+        .floating-shapes {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.2;
+            font-size: 36px;
+        }
+
+        .shape:nth-child(1) { top: 12%; left: 6%; }
+        .shape:nth-child(2) { top: 55%; left: 12%; }
+        .shape:nth-child(3) { top: 18%; right: 8%; }
+        .shape:nth-child(4) { top: 65%; right: 15%; }
+        .shape:nth-child(5) { top: 35%; left: 3%; }
+        .shape:nth-child(6) { top: 25%; right: 3%; }
+        .shape:nth-child(7) { bottom: 12%; left: 22%; }
+        .shape:nth-child(8) { bottom: 18%; right: 6%; }
+        .shape:nth-child(9) { top: 8%; left: 45%; }
+        .shape:nth-child(10) { bottom: 8%; right: 40%; }
+
+        .shape:nth-child(1) { animation: bounce1 2.5s ease-in-out infinite; }
+        .shape:nth-child(2) { animation: bounce2 3s ease-in-out infinite 0.3s; }
+        .shape:nth-child(3) { animation: bounce3 2.8s ease-in-out infinite 0.6s; }
+        .shape:nth-child(4) { animation: bounce1 3.2s ease-in-out infinite 1s; }
+        .shape:nth-child(5) { animation: bounce2 2.6s ease-in-out infinite 0.2s; }
+        .shape:nth-child(6) { animation: bounce3 3.5s ease-in-out infinite 0.8s; }
+        .shape:nth-child(7) { animation: bounce1 2.9s ease-in-out infinite 1.2s; }
+        .shape:nth-child(8) { animation: bounce2 3.1s ease-in-out infinite 0.5s; }
+        .shape:nth-child(9) { animation: bounce3 2.7s ease-in-out infinite 0.7s; }
+        .shape:nth-child(10) { animation: bounce1 3.3s ease-in-out infinite 0.4s; }
+
+        @keyframes bounce1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-25px) rotate(10deg); }
+            50% { transform: translateY(-40px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes bounce2 {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            33% { transform: translateY(-30px) translateX(10px) scale(1.1); }
+            66% { transform: translateY(-15px) translateX(-8px) scale(0.95); }
+        }
+        @keyframes bounce3 {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            20% { transform: translateY(-20px) rotate(-8deg) scale(1.05); }
+            40% { transform: translateY(-35px) rotate(6deg) scale(1.1); }
+            60% { transform: translateY(-10px) rotate(-3deg) scale(1); }
+            80% { transform: translateY(-25px) rotate(4deg) scale(1.05); }
+        }
+
+        .banner-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 24px;
+            padding-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .discount-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--white);
+            padding: 14px 36px;
+            border-radius: var(--radius-full);
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+        }
+        .discount-badge .discount-text { font-size: 30px; font-weight: 900; background: var(--gradient-banner); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .discount-badge .discount-percent { font-size: 36px; font-weight: 900; color: var(--text-dark); }
+        .discount-badge i { font-size: 18px; color: #f59e0b; animation: flash 1.2s ease-in-out infinite; }
+        @keyframes flash { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
+
+        .offer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: var(--radius-full);
+            font-size: 19px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+            position: relative;
+            z-index: 2;
+            animation: btnBounce 3s ease-in-out infinite;
+        }
+        @keyframes btnBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .offer-btn:hover { transform: translateY(-4px) scale(1.03) !important; box-shadow: 0 12px 32px rgba(236, 72, 153, 0.5); }
+        .offer-btn i { animation: ring 1.5s ease-in-out infinite; }
+        @keyframes ring { 0%, 100% { transform: rotate(0deg); } 10% { transform: rotate(15deg); } 20% { transform: rotate(-15deg); } 30% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 50%, 100% { transform: rotate(0deg); } }
+
+        .offer-subtitle { font-size: 14px; color: rgba(255,255,255,0.85); margin-top: 16px; position: relative; z-index: 2; }
+
+        /* ============================================
+           CONTACT SECTION - صورة خلفية + ليار أخضر شفاف
+           ============================================ */
+        .contact-section {
+            padding: 80px 0;
+            position: relative;
+            background-image: url('assets/images/clinic-2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* الليار الأخضر الشفاف */
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(13, 148, 136, 0.75);
+            z-index: 0;
+        }
+
+        .contact-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* Form Card */
+        .form-card { background: var(--white); border-radius: var(--radius-xl); padding: 36px; box-shadow: var(--shadow-xl); }
+        .form-card h2 { font-size: 22px; font-weight: 800; color: var(--text-dark); text-align: center; margin-bottom: 24px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+        .form-group label .required { color: #ef4444; }
+        .form-group input, .form-group select, .form-group textarea { padding: 12px 16px; border: 1.5px solid #e2e8f0; border-radius: var(--radius); font-family: 'Cairo', sans-serif; font-size: 14px; color: var(--text-dark); transition: var(--transition); background: var(--white); width: 100%; }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-light); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15); }
+        .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 14px center; padding-left: 36px; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-submit-btn { width: 100%; padding: 14px; background: var(--gradient-teal); color: var(--white); border: none; border-radius: var(--radius); font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; }
+        .form-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45, 212, 191, 0.4); }
+        .form-benefits { display: flex; justify-content: center; gap: 24px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+        .form-benefit { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-gray); font-weight: 600; }
+        .form-benefit i { font-size: 14px; color: var(--teal); }
+
+        /* Info Card */
+        .info-card { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border-radius: var(--radius-xl); padding: 40px; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .info-card h2 { font-size: 28px; font-weight: 900; color: var(--white); margin-bottom: 8px; line-height: 1.4; }
+        .info-card > p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 28px; }
+        .info-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .info-feature { background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border-radius: var(--radius); padding: 16px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.15); transition: var(--transition); }
+        .info-feature:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .info-feature-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .info-feature-icon i { font-size: 18px; color: var(--white); }
+        .info-feature-text h4 { font-size: 13px; font-weight: 800; color: var(--white); margin-bottom: 2px; }
+        .info-feature-text p { font-size: 11px; color: rgba(255,255,255,0.7); }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials { padding: 70px 0; background: var(--white); }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 28px; font-weight: 900; color: var(--text-dark); margin-bottom: 10px; }
+        .section-header p { font-size: 15px; color: var(--text-gray); }
+        .testimonials-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
+        .testimonial-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 28px; transition: var(--transition); }
+        .testimonial-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+        .testimonial-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .testimonial-user-info h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+        .testimonial-user-info .branch { font-size: 12px; color: var(--teal-dark); font-weight: 600; }
+        .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gradient-teal); display: flex; align-items: center; justify-content: center; }
+        .testimonial-avatar i { font-size: 20px; color: var(--white); }
+        .testimonial-text { font-size: 14px; color: var(--text-gray); line-height: 1.8; margin-bottom: 14px; }
+        .testimonial-stars { display: flex; gap: 3px; margin-bottom: 12px; }
+        .testimonial-stars i { color: #f59e0b; font-size: 13px; }
+        .testimonial-date { font-size: 12px; color: var(--text-light); display: flex; align-items: center; gap: 4px; }
+        .testimonial-more { font-size: 13px; color: var(--teal-dark); font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: var(--transition); }
+        .testimonial-more:hover { color: var(--teal); }
+        .testimonials-bottom { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .testimonial-card-sm { background: var(--white); border: 1px solid #e2e8f0; border-radius: var(--radius); padding: 20px; text-align: center; transition: var(--transition); }
+        .testimonial-card-sm:hover { border-color: var(--teal); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .testimonial-card-sm .stars { display: flex; justify-content: center; gap: 3px; margin-bottom: 10px; }
+        .testimonial-card-sm .stars i { color: #f59e0b; font-size: 12px; }
+        .testimonial-card-sm h4 { font-size: 13px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+        .testimonial-card-sm p { font-size: 12px; color: var(--text-gray); line-height: 1.6; }
+
+        /* ============================================
+           WHATSAPP FLOAT
+           ============================================ */
+        .whatsapp-float { position: fixed; bottom: 24px; left: 24px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: var(--whatsapp); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4); transition: var(--transition); animation: pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float i { font-size: 28px; color: var(--white); }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); } }
+
+        /* ============================================
+           SCROLL ANIMATIONS
+           ============================================ */
+        .anim { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+        .anim-d1 { transition-delay: 0.1s; }
+        .anim-d2 { transition-delay: 0.2s; }
+        .anim-d3 { transition-delay: 0.3s; }
+        .anim-d4 { transition-delay: 0.4s; }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 68px; right: 0; left: 0; background: var(--navy); flex-direction: column; padding: 20px; gap: 14px; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .header-actions { display: none; }
+            .banner-title { font-size: 28px; padding-top: 30px; }
+            .discount-badge .discount-text { font-size: 20px; }
+            .discount-badge .discount-percent { font-size: 24px; }
+            .offer-btn { font-size: 14px; padding: 14px 24px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+            .info-card { order: -1; }
+            .info-features { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-benefits { flex-direction: column; align-items: center; gap: 8px; }
+            .testimonials-top { grid-template-columns: 1fr; }
+            .testimonials-bottom { grid-template-columns: repeat(2, 1fr); }
+            .shape { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-tooth"></i></div>
+                    <div class="logo-text">
+                        <h2>مجمع مزايا لمار</h2>
+                        <p>لطب الأسنان والجلدية</p>
+                    </div>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                    <li><a href="index.html#about" class="nav-link">من نحن</a></li>
+                    <li><a href="index.html#services" class="nav-link">خدماتنا</a></li>
+                    <li><a href="index.html#branches" class="nav-link">فروعنا</a></li>
+                    <li><a href="index.html#testimonials" class="nav-link">التقييمات</a></li>
+                    <li><a href="contact.html" class="nav-link active">تواصل</a></li>
+                </ul>
+                <div class="header-actions">
+                    <a href="contact.html" class="btn btn-teal"><i class="fas fa-calendar-check"></i> احجز الآن</a>
+                    <a href="tel:+" class="btn btn-white"><i class="fas fa-phone"></i> اتصل الآن</a>
+                    <a href="https://wa.me/" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</a>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         HERO BANNER - عناصر تتنطط للابد
+         ============================================ -->
+    <section class="hero-banner">
+        <div class="floating-shapes">
+            <div class="shape">&#10024;</div>
+            <div class="shape">&#128171;</div>
+            <div class="shape">&#11088;</div>
+            <div class="shape">&#127775;</div>
+            <div class="shape">&#10024;</div>
+            <div class="shape">&#128171;</div>
+            <div class="shape">&#11088;</div>
+            <div class="shape">&#127775;</div>
+            <div class="shape">&#10024;</div>
+            <div class="shape">&#128171;</div>
+        </div>
+
+        <div class="container">
+            <h1 class="banner-title">أقوى العروض والخصومات</h1>
+            <div class="discount-badge">
+                <i class="fas fa-bolt"></i>
+                <span class="discount-text">تصل</span>
+                <span class="discount-percent">60%</span>
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div>
+                <button class="offer-btn"><i class="fas fa-clock"></i> عروض استثنائية لأول 100 حجز</button>
+            </div>
+            <p class="offer-subtitle"><i class="fas fa-circle-info"></i> المقاعده محدوده - احجز مقعدك الآن</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION - صورة خلفية + ليار أخضر شفاف
+         ============================================ -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Info Card -->
+                <div class="info-card anim">
+                    <h2>ابتسامتك الجديدة<br>تبدأ من هنا! &#10024;</h2>
+                    <p>مع فريقنا المتميز من أطباء الأسنان - أكثر من 15 عاماً من التميز والابتكار في جميع أنحاء المملكة العربية السعودية.</p>
+                    <div class="info-features">
+                        <div class="info-feature">
+                            <div class="info-feature-icon"><i class="fas fa-star"></i></div>
+                            <div class="info-feature-text"><h4>استشارة مجانية</h4><p>تشخيص شامل بدون رسوم</p></div>
+                        </div>
+                        <div class="info-feature">
+                            <div class="info-feature-icon"><i class="fas fa-user-doctor"></i></div>
+                            <div class="info-feature-text"><h4>أطباء متخصصون</h4><p>فريق طبي بخبرة عالمية</p></div>
+                        </div>
+                        <div class="info-feature">
+                            <div class="info-feature-icon"><i class="fas fa-building"></i></div>
+                            <div class="info-feature-text"><h4>+47 فرع</h4><p>في جميع أنحاء المملكة</p></div>
+                        </div>
+                        <div class="info-feature">
+                            <div class="info-feature-icon"><i class="fas fa-award"></i></div>
+                            <div class="info-feature-text"><h4>أحدث التقنيات</h4><p>أجهزة متقدمة وعصرية</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="form-card anim anim-d1">
+                    <h2>استشارة مجانية</h2>
+                    <form id="consultForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>الاسم <span class="required">*</span></label>
+                                <input type="text" placeholder="اكتب اسمك">
+                            </div>
+                            <div class="form-group">
+                                <label>رقم الجوال <span class="required">*</span></label>
+                                <input type="tel" placeholder="05xxxxxxxx">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>اختر الخدمة المطلوبة <span class="required">*</span></label>
+                                <select>
+                                    <option value="">اختر الخدمة</option>
+                                    <option>تقويم الأسنان</option>
+                                    <option>زراعة الأسنان</option>
+                                    <option>تبييض الأسنان</option>
+                                    <option>علاج اللثة</option>
+                                    <option>تجميل الأسنان</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>اختر الفرع الأقرب <span class="required">*</span></label>
+                                <select>
+                                    <option value="">اختر الفرع</option>
+                                    <option>الرياض</option>
+                                    <option>جدة</option>
+                                    <option>الدمام</option>
+                                    <option>الدوحة</option>
+                                    <option>الكويت</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row" style="grid-template-columns: 1fr;">
+                            <div class="form-group">
+                                <label>ملاحظات إضافية</label>
+                                <textarea placeholder="اكتب أي ملاحظات أو استفسارات إضافية..." rows="4"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-submit-btn">
+                            <i class="fas fa-calendar-check"></i>
+                            احجز موعدك الآن
+                        </button>
+                    </form>
+                    <div class="form-benefits">
+                        <div class="form-benefit"><i class="fas fa-shield-halved"></i><span>خصوصية مضمونة</span></div>
+                        <div class="form-benefit"><i class="fas fa-bolt"></i><span>رد سريع</span></div>
+                        <div class="form-benefit"><i class="fas fa-clock"></i><span>بيانات محفية</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS
+         ============================================ -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header anim">
+                <h2>آراء عملائنا الكرام</h2>
+                <p>تجارب حقيقية من عملائنا الذين نفخر بهم</p>
+            </div>
+            <div class="testimonials-top">
+                <div class="testimonial-card anim anim-d1">
+                    <div class="testimonial-header">
+                        <div class="testimonial-user-info"><h4>نورا الشمري</h4><span class="branch">فرع الرياض</span></div>
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                    </div>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">تعاملت مع عيادات المجموعة لعلاج أسنان لدي وتجربة العلاج فاقت توقعاتي. شكراً جزيلاً لفريق العمل المتميز والنتائج الرائعة.</p>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span class="testimonial-date"><i class="fas fa-calendar"></i> 15 نوفمبر 2024</span>
+                        <span class="testimonial-more">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card anim anim-d2">
+                    <div class="testimonial-header">
+                        <div class="testimonial-user-info"><h4>محمد المطيري</h4><span class="branch">فرع جدة</span></div>
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                    </div>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">زرت المجموعة لزراعة الأسنان وتجربة العلاج كانت ممتازة جداً. الطاقم الطبي محترف ومتعاون والنتائج رائعة.</p>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span class="testimonial-date"><i class="fas fa-calendar"></i> 10 نوفمبر 2024</span>
+                        <span class="testimonial-more">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></span>
+                    </div>
+                </div>
+                <div class="testimonial-card anim anim-d3">
+                    <div class="testimonial-header">
+                        <div class="testimonial-user-info"><h4>سالم العتيبي</h4><span class="branch">فرع الدمام</span></div>
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                    </div>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">تجربة رائعة من الاستشارة إلى العلاج. فريق العمل متعاون جداً والعيادة نظيفة وحديثة. النتائج فاقت توقعاتي.</p>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span class="testimonial-date"><i class="fas fa-calendar"></i> 5 نوفمبر 2024</span>
+                        <span class="testimonial-more">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-bottom">
+                <div class="testimonial-card-sm anim anim-d1">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <h4>تجربة في زراعة الأسنان</h4>
+                    <p>الدكتور كان ممتازاً والنتائج فاقت التوقعات.</p>
+                </div>
+                <div class="testimonial-card-sm anim anim-d2">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <h4>علاج لب الأسنان</h4>
+                    <p>أفضل عيادة أسنان تعاملت معها على الإطلاق.</p>
+                </div>
+                <div class="testimonial-card-sm anim anim-d3">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <h4>تقويم الأسنان</h4>
+                    <p>نتائج ممتازة وخدمة رائعة من الفريق الطبي.</p>
+                </div>
+                <div class="testimonial-card-sm anim anim-d4">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <h4>استشارة مجانية</h4>
+                    <p>استشارة شاملة ونصحني بالعلاج المناسب.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Intersection Observer
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.anim').forEach(function(el) { observer.observe(el); });
+
+        // Mobile Menu
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Form Submit
+        document.getElementById('consultForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم استلام طلبك بنجاح! سنتواصل معك قريباً.');
+        });
+    </script>
+</body>
+</html>
